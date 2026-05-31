@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build --base=/m2m/",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +17,8 @@
   "dependencies": {
     "peerjs": "^1.5.5",
     "vite": "^8.0.14"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
