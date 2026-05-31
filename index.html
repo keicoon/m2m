@@ -5,8 +5,8 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Premium Minesweeper</title>
-  <script type="module" crossorigin src="/m2m/assets/index-DHRZszTv.js"></script>
-  <link rel="stylesheet" crossorigin href="/m2m/assets/index-CClSIevR.css">
+  <script type="module" crossorigin src="/m2m/assets/index-BlMq6Ypa.js"></script>
+  <link rel="stylesheet" crossorigin href="/m2m/assets/index-CF8KyeAP.css">
 </head>
 <body>
   <div class="layout-wrapper">
@@ -22,40 +22,43 @@
       <div class="glass-container">
         <header>
           <h1>MINESWEEPER</h1>
-          <div class="user-info">
-            <span>Your ID (IP):</span>
-            <span id="my-code" class="code-display">Connecting...</span>
+          <div class="header-right">
+            <div id="user-info-container" class="user-info hidden-element">
+              <span data-i18n="yourId">Your ID (IP):</span>
+              <span id="my-code" class="code-display">Connecting...</span>
+            </div>
+            <button id="btn-settings" class="icon-btn" aria-label="Settings">⚙️</button>
           </div>
         </header>
 
         <!-- Guide & Lobby Section -->
         <section id="guide-section" class="active-section">
           <div class="menu-card lobby-guide">
-            <h2>Welcome to Premium Minesweeper</h2>
+            <h2 data-i18n="welcome">Welcome to Premium Minesweeper</h2>
             <div class="guide-content">
-              <h3>📖 How to Play</h3>
-              <p>Minesweeper is a classic logic puzzle game. Your goal is to uncover all the safe squares without detonating any hidden mines.</p>
+              <h3 data-i18n="howToPlayTitle">📖 How to Play</h3>
+              <p data-i18n="howToPlayDesc">Minesweeper is a classic logic puzzle game. Your goal is to uncover all the safe squares without detonating any hidden mines.</p>
               <ul>
-                <li><strong>Left-Click:</strong> Reveal a square. If it's a mine, you lose!</li>
-                <li><strong>Right-Click:</strong> Place a flag 🚩 on squares you suspect are mines.</li>
-                <li><strong>Numbers:</strong> A number shows how many mines are hidden in the adjacent 8 squares. Use logic to figure out the safe spots!</li>
+                <li data-i18n="rule1"><strong>Left-Click:</strong> Reveal a square. If it's a mine, you lose!</li>
+                <li data-i18n="rule2"><strong>Right-Click (or Flag Mode):</strong> Place a flag 🚩 on squares you suspect are mines.</li>
+                <li data-i18n="rule3"><strong>Numbers:</strong> A number shows how many mines are hidden in the adjacent 8 squares. Use logic to figure out the safe spots!</li>
               </ul>
               
-              <h3>⚔️ Multiplayer (P2P) Mode</h3>
-              <p>Challenge a friend in real-time! In P2P mode, you both receive the exact same board. The first player to clear all safe squares wins. If you hit a mine, your opponent instantly wins!</p>
-              <p><em>* No server is used. You connect directly using a generated Connection ID.</em></p>
+              <h3 data-i18n="multiModeTitle">⚔️ Multiplayer (P2P) Mode</h3>
+              <p data-i18n="multiModeDesc">Challenge a friend in real-time! In P2P mode, you both receive the exact same board. The first player to clear all safe squares wins. If you hit a mine, your opponent instantly wins!</p>
+              <p><em data-i18n="multiModeNote">* No server is used. You connect directly using a generated Connection ID.</em></p>
             </div>
-            <button id="btn-enter-menu" class="btn primary mt-4">Start Playing</button>
+            <button id="btn-enter-menu" class="btn primary mt-4" data-i18n="startPlaying">Start Playing</button>
           </div>
         </section>
 
         <!-- Main Menu -->
         <section id="menu-section" class="hidden-section">
           <div class="menu-card">
-            <h2>Select Game Mode</h2>
+            <h2 data-i18n="selectMode">Select Game Mode</h2>
             <div class="mode-buttons">
-              <button id="btn-single" class="btn primary">Single Player</button>
-              <button id="btn-multi" class="btn secondary">Multiplayer (P2P)</button>
+              <button id="btn-single" class="btn primary" data-i18n="singlePlayer">Single Player</button>
+              <button id="btn-multi" class="btn secondary" data-i18n="multiPlayer">Multiplayer (P2P)</button>
             </div>
           </div>
         </section>
@@ -63,36 +66,36 @@
       <!-- Difficulty Selection (Single or Host) -->
       <section id="difficulty-section" class="hidden-section">
         <div class="menu-card">
-          <h2>Select Difficulty</h2>
+          <h2 data-i18n="selectDiff">Select Difficulty</h2>
           <div class="difficulty-buttons">
-            <button class="btn btn-diff" data-diff="easy">Easy (9x9, 10 Mines)</button>
-            <button class="btn btn-diff" data-diff="medium">Medium (16x16, 40 Mines)</button>
-            <button class="btn btn-diff" data-diff="hard">Hard (30x16, 99 Mines)</button>
+            <button class="btn btn-diff" data-diff="easy" data-i18n="diffEasy">Easy (9x9, 10 Mines)</button>
+            <button class="btn btn-diff" data-diff="medium" data-i18n="diffMedium">Medium (16x16, 40 Mines)</button>
+            <button class="btn btn-diff" data-diff="hard" data-i18n="diffHard">Hard (30x16, 99 Mines)</button>
           </div>
-          <button id="btn-back-menu" class="btn text-btn">Back</button>
+          <button id="btn-back-menu" class="btn text-btn" data-i18n="back">Back</button>
         </div>
       </section>
 
       <!-- Multiplayer Lobby -->
       <section id="lobby-section" class="hidden-section">
         <div class="menu-card">
-          <h2>Multiplayer Lobby</h2>
-          <p>Invite an opponent via their ID (IP).</p>
+          <h2 data-i18n="multiLobby">Multiplayer Lobby</h2>
+          <p data-i18n="inviteDesc">Invite an opponent via their ID (IP).</p>
           <div class="input-group">
-            <input type="text" id="invite-code-input" placeholder="Opponent's ID" />
-            <button id="btn-invite" class="btn primary">Invite</button>
+            <input type="text" id="invite-code-input" data-i18n-placeholder="opponentId" placeholder="Opponent's ID" />
+            <button id="btn-invite" class="btn primary" data-i18n="inviteBtn">Invite</button>
           </div>
-          <button id="btn-back-multi" class="btn text-btn">Back</button>
+          <button id="btn-back-multi" class="btn text-btn" data-i18n="back">Back</button>
         </div>
       </section>
 
       <!-- Waiting State -->
       <section id="waiting-section" class="hidden-section">
         <div class="menu-card">
-          <h2>Waiting...</h2>
+          <h2 data-i18n="waiting">Waiting...</h2>
           <div class="loader"></div>
-          <p>Waiting for opponent to accept.</p>
-          <button id="btn-cancel-invite" class="btn danger">Cancel</button>
+          <p data-i18n="waitingDesc">Waiting for opponent to accept.</p>
+          <button id="btn-cancel-invite" class="btn danger" data-i18n="cancel">Cancel</button>
         </div>
       </section>
 
@@ -100,15 +103,18 @@
       <section id="game-section" class="hidden-section">
         <div class="game-header">
           <div class="stat-box">
-            <span>Mines</span>
+            <span data-i18n="mines">Mines</span>
             <span id="mine-count">0</span>
           </div>
           <div class="face-btn" id="face-btn">😊</div>
           <div class="stat-box">
-            <span>Time</span>
+            <span data-i18n="time">Time</span>
             <span id="timer">0</span>
           </div>
         </div>
+        
+        <!-- Mobile Flag Toggle -->
+        <button id="btn-mobile-flag" class="btn-flag-toggle hidden">👆 ⛏️ <span data-i18n="digMode">Dig Mode</span></button>
         
         <!-- Multiplayer Race Track -->
         <div id="race-track-container" class="hidden">
@@ -129,7 +135,7 @@
         <div class="board-container">
           <div id="board" class="board"></div>
         </div>
-        <button id="btn-leave-game" class="btn text-btn mt-4">Quit Game</button>
+        <button id="btn-leave-game" class="btn text-btn mt-4" data-i18n="quitGame">Quit Game</button>
       </section>
 
     </div>
@@ -147,12 +153,12 @@
   <!-- Invite Modal -->
   <div id="invite-modal" class="modal hidden">
     <div class="modal-content glass-card">
-      <h3>Game Invitation</h3>
-      <p>Player <span id="invite-from-code"></span> has invited you to a game!</p>
-      <p>Difficulty: <span id="invite-difficulty"></span></p>
+      <h3 data-i18n="inviteTitle">Game Invitation</h3>
+      <p><span data-i18n="playerText">Player</span> <span id="invite-from-code"></span> <span data-i18n="invitedYou">has invited you to a game!</span></p>
+      <p><span data-i18n="difficultyText">Difficulty:</span> <span id="invite-difficulty"></span></p>
       <div class="modal-actions">
-        <button id="btn-accept-invite" class="btn primary">Accept</button>
-        <button id="btn-reject-invite" class="btn danger">Reject</button>
+        <button id="btn-accept-invite" class="btn primary" data-i18n="accept">Accept</button>
+        <button id="btn-reject-invite" class="btn danger" data-i18n="reject">Reject</button>
       </div>
     </div>
   </div>
@@ -162,7 +168,21 @@
     <div class="modal-content glass-card">
       <h3 id="result-title">You Win!</h3>
       <p id="result-message"></p>
-      <button id="btn-close-result" class="btn primary">Close</button>
+      <button id="btn-close-result" class="btn primary" data-i18n="close">Close</button>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal hidden">
+    <div class="modal-content glass-card">
+      <h3 data-i18n="settings">Settings</h3>
+      <div class="input-group">
+        <select id="language-select" class="lang-select">
+          <option value="en">English</option>
+          <option value="ko">한국어</option>
+        </select>
+      </div>
+      <button id="btn-close-settings" class="btn primary" data-i18n="close">Close</button>
     </div>
   </div>
 
