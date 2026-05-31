@@ -1,0 +1,88 @@
+/* AdSense Layout */
+.layout-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 20px;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.ad-sidebar {
+  width: 160px;
+  min-height: 600px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.ad-placeholder-text {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1000px) {
+  .ad-sidebar {
+    display: none;
+  }
+}
+
+/* Lobby Guide Section */
+.lobby-guide {
+  max-width: 550px !important;
+}
+
+.guide-content {
+  text-align: left;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.guide-content h3 {
+  font-family: 'Outfit', sans-serif;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+
+.guide-content h3:first-child {
+  margin-top: 0;
+}
+
+.guide-content p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+.guide-content ul {
+  list-style: none;
+  margin-bottom: 16px;
+}
+
+.guide-content li {
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  padding-left: 20px;
+  position: relative;
+}
+
+.guide-content li::before {
+  content: "•";
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
