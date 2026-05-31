@@ -84,6 +84,12 @@ h1 {
   letter-spacing: 2px;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .user-info {
   background: rgba(0, 0, 0, 0.3);
   padding: 8px 16px;
@@ -92,6 +98,23 @@ h1 {
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+.hidden-element {
+  display: none !important;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 4px;
+}
+
+.icon-btn:hover {
+  transform: rotate(45deg);
 }
 
 .code-display {
@@ -483,3 +506,45 @@ input::placeholder {
 .n6 { color: #2dd4bf; }
 .n7 { color: #a78bfa; }
 .n8 { color: #f472b6; }
+
+/* Settings and Language Select */
+.lang-select {
+  width: 100%;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--glass-border);
+  color: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.lang-select option {
+  background: var(--bg-color);
+}
+
+/* Mobile Flag Toggle Button */
+.btn-flag-toggle {
+  display: none;
+  width: 100%;
+  padding: 12px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.btn-flag-toggle.flag-mode {
+  background: var(--danger-color);
+}
+
+@media (max-width: 768px) {
+  .btn-flag-toggle {
+    display: block;
+  }
+}

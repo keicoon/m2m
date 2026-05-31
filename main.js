@@ -10,6 +10,90 @@ function mulberry32(a) {
     }
 }
 
+// --- Translations ---
+const translations = {
+  en: {
+    welcome: "Welcome to Premium Minesweeper",
+    howToPlayTitle: "📖 How to Play",
+    howToPlayDesc: "Minesweeper is a classic logic puzzle game. Your goal is to uncover all the safe squares without detonating any hidden mines.",
+    rule1: "<strong>Left-Click:</strong> Reveal a square. If it's a mine, you lose!",
+    rule2: "<strong>Right-Click (or Flag Mode):</strong> Place a flag 🚩 on squares you suspect are mines.",
+    rule3: "<strong>Numbers:</strong> A number shows how many mines are hidden in the adjacent 8 squares. Use logic to figure out the safe spots!",
+    multiModeTitle: "⚔️ Multiplayer (P2P) Mode",
+    multiModeDesc: "Challenge a friend in real-time! In P2P mode, you both receive the exact same board. The first player to clear all safe squares wins. If you hit a mine, your opponent instantly wins!",
+    multiModeNote: "* No server is used. You connect directly using a generated Connection ID.",
+    startPlaying: "Start Playing",
+    selectMode: "Select Game Mode",
+    singlePlayer: "Single Player",
+    multiPlayer: "Multiplayer (P2P)",
+    selectDiff: "Select Difficulty",
+    diffEasy: "Easy (9x9, 10 Mines)",
+    diffMedium: "Medium (16x16, 40 Mines)",
+    diffHard: "Hard (30x16, 99 Mines)",
+    back: "Back",
+    multiLobby: "Multiplayer Lobby",
+    inviteDesc: "Invite an opponent via their ID (IP).",
+    inviteBtn: "Invite",
+    waiting: "Waiting...",
+    waitingDesc: "Waiting for opponent to accept.",
+    cancel: "Cancel",
+    mines: "Mines",
+    time: "Time",
+    digMode: "Dig Mode",
+    flagMode: "Flag Mode",
+    quitGame: "Quit Game",
+    inviteTitle: "Game Invitation",
+    playerText: "Player",
+    invitedYou: "has invited you to a game!",
+    difficultyText: "Difficulty:",
+    accept: "Accept",
+    reject: "Reject",
+    close: "Close",
+    settings: "Settings",
+    yourId: "Your ID (IP):"
+  },
+  ko: {
+    welcome: "프리미엄 지뢰찾기에 오신 것을 환영합니다",
+    howToPlayTitle: "📖 게임 방법",
+    howToPlayDesc: "지뢰찾기는 클래식 논리 퍼즐 게임입니다. 숨겨진 지뢰를 건드리지 않고 모든 안전한 칸을 찾아내세요.",
+    rule1: "<strong>좌클릭 (터치):</strong> 칸을 엽니다. 지뢰가 나오면 패배합니다!",
+    rule2: "<strong>우클릭 (또는 깃발 모드):</strong> 지뢰로 의심되는 칸에 깃발 🚩을 꽂습니다.",
+    rule3: "<strong>숫자 힌트:</strong> 주변 8칸에 숨겨진 지뢰의 개수를 알려줍니다. 논리를 발휘해보세요!",
+    multiModeTitle: "⚔️ 대전 (P2P) 모드",
+    multiModeDesc: "실시간으로 친구와 대전하세요! 완전히 동일한 보드로 대결합니다. 모든 안전한 칸을 먼저 열거나, 상대방이 지뢰를 밟으면 승리합니다!",
+    multiModeNote: "* 서버를 거치지 않고 발급된 Connection ID를 통해 직접 연결됩니다.",
+    startPlaying: "게임 시작",
+    selectMode: "게임 모드 선택",
+    singlePlayer: "싱글 플레이",
+    multiPlayer: "대전 모드 (P2P)",
+    selectDiff: "난이도 선택",
+    diffEasy: "초급 (9x9, 지뢰 10개)",
+    diffMedium: "중급 (16x16, 지뢰 40개)",
+    diffHard: "고급 (30x16, 지뢰 99개)",
+    back: "뒤로가기",
+    multiLobby: "대전 로비",
+    inviteDesc: "상대방의 ID (IP)를 입력하여 초대하세요.",
+    inviteBtn: "초대하기",
+    waiting: "대기 중...",
+    waitingDesc: "상대방의 수락을 기다리고 있습니다.",
+    cancel: "취소",
+    mines: "지뢰",
+    time: "시간",
+    digMode: "파내기 모드",
+    flagMode: "깃발 모드",
+    quitGame: "게임 종료",
+    inviteTitle: "게임 초대",
+    playerText: "플레이어",
+    invitedYou: "님이 대전을 요청했습니다!",
+    difficultyText: "난이도:",
+    accept: "수락",
+    reject: "거절",
+    close: "닫기",
+    settings: "설정",
+    yourId: "내 ID (IP):"
+  }
+};
+
 // --- App State ---
 const state = {
   mode: 'guide', 
@@ -34,7 +118,11 @@ const state = {
   minesLeft: 10,
   revealedCount: 0,
   timer: 0,
-  timerInterval: null
+  timerInterval: null,
+  
+  // Settings & Mobile
+  language: 'en',
+  isMobileFlagMode: false
 };
 
 // --- Difficulty Configurations ---
@@ -46,7 +134,9 @@ const DIFFICULTIES = {
 
 // --- DOM Elements ---
 const els = {
+  userInfoContainer: document.getElementById('user-info-container'),
   myCode: document.getElementById('my-code'),
+  btnSettings: document.getElementById('btn-settings'),
   sections: {
     guide: document.getElementById('guide-section'),
     menu: document.getElementById('menu-section'),
@@ -69,12 +159,14 @@ const els = {
   mineCount: document.getElementById('mine-count'),
   timer: document.getElementById('timer'),
   faceBtn: document.getElementById('face-btn'),
+  btnMobileFlag: document.getElementById('btn-mobile-flag'),
   raceTrackContainer: document.getElementById('race-track-container'),
   myRacer: document.getElementById('my-racer'),
   oppRacer: document.getElementById('opp-racer'),
   modals: {
     invite: document.getElementById('invite-modal'),
-    result: document.getElementById('result-modal')
+    result: document.getElementById('result-modal'),
+    settings: document.getElementById('settings-modal')
   },
   inviteFromCode: document.getElementById('invite-from-code'),
   inviteDifficulty: document.getElementById('invite-difficulty'),
@@ -82,7 +174,9 @@ const els = {
   btnRejectInvite: document.getElementById('btn-reject-invite'),
   resultTitle: document.getElementById('result-title'),
   resultMessage: document.getElementById('result-message'),
-  btnCloseResult: document.getElementById('btn-close-result')
+  btnCloseResult: document.getElementById('btn-close-result'),
+  btnCloseSettings: document.getElementById('btn-close-settings'),
+  languageSelect: document.getElementById('language-select')
 };
 
 // --- PeerJS Connection ---
@@ -210,6 +304,32 @@ function setupConnectionHandlers(conn, isHost) {
   });
 }
 
+// --- UI Updates & i18n ---
+function updateLanguage() {
+  const dict = translations[state.language];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key]) {
+      el.innerHTML = dict[key];
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    // Using simple text mapping for placeholders if they exist in dictionary,
+    // actually we didn't add opponentId to dict, let's just do it inline
+    if (key === 'opponentId') {
+      el.placeholder = state.language === 'en' ? "Opponent's ID" : "상대방의 ID";
+    }
+  });
+  
+  // Update mobile flag button text
+  if (state.isMobileFlagMode) {
+    els.btnMobileFlag.innerHTML = `🚩 <span data-i18n="flagMode">${dict.flagMode}</span>`;
+  } else {
+    els.btnMobileFlag.innerHTML = `👆 ⛏️ <span data-i18n="digMode">${dict.digMode}</span>`;
+  }
+}
+
 // --- Navigation ---
 function showSection(secName) {
   Object.values(els.sections).forEach(sec => sec.classList.remove('active-section'));
@@ -217,6 +337,13 @@ function showSection(secName) {
   els.sections[secName].classList.remove('hidden-section');
   els.sections[secName].classList.add('active-section');
   state.mode = secName;
+
+  // Toggle user-info visibility
+  if (secName === 'lobby' || secName === 'waiting' || (secName === 'game' && state.isMultiplayer)) {
+    els.userInfoContainer.classList.remove('hidden-element');
+  } else {
+    els.userInfoContainer.classList.add('hidden-element');
+  }
 }
 
 // --- Event Listeners ---
@@ -331,6 +458,25 @@ els.faceBtn.addEventListener('click', () => {
   }
 });
 
+els.btnSettings.addEventListener('click', () => {
+  els.modals.settings.classList.remove('hidden');
+});
+
+els.btnCloseSettings.addEventListener('click', () => {
+  els.modals.settings.classList.add('hidden');
+});
+
+els.languageSelect.addEventListener('change', (e) => {
+  state.language = e.target.value;
+  updateLanguage();
+});
+
+els.btnMobileFlag.addEventListener('click', () => {
+  state.isMobileFlagMode = !state.isMobileFlagMode;
+  els.btnMobileFlag.classList.toggle('flag-mode', state.isMobileFlagMode);
+  updateLanguage(); // to refresh the text inside the button
+});
+
 // --- Game Logic ---
 function startGame(difficulty, seed) {
   const config = DIFFICULTIES[difficulty];
@@ -436,14 +582,14 @@ function handleCellClick(e) {
   const c = parseInt(e.target.dataset.c);
   const cellData = state.board[r][c];
 
-  if (e.button === 0) {
-    // Left click
+  if (e.button === 0 && !state.isMobileFlagMode) {
+    // Left click or mobile tap in Dig Mode
     if (!cellData.isFlagged && !cellData.isRevealed) {
       revealCell(r, c);
       checkWinCondition();
     }
-  } else if (e.button === 2) {
-    // Right click
+  } else if (e.button === 2 || state.isMobileFlagMode) {
+    // Right click or mobile tap in Flag Mode
     e.preventDefault();
     if (!cellData.isRevealed) {
       toggleFlag(r, c);
@@ -567,4 +713,5 @@ function stopTimer() {
 }
 
 // --- Init ---
+updateLanguage();
 initPeer();
